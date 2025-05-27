@@ -18,6 +18,18 @@ monthly_challenge = {
 }
 
 # Create your views here.
+def monthly_challenges_index(request):
+    months = list(monthly_challenge.keys())
+    text = ""
+    for m in months:
+        capitalized_month = m.capitalize()
+        redirect_path = reverse("month-challenge", args=[m])
+        text += f"<li><a href=\"{redirect_path}\">{capitalized_month}</a></li>" + "\n\n"
+    
+    text = f"<ul>{text}</ul>"
+    return HttpResponse(text)
+
+
 def monthly_challenges_by_number(request, month):
     months = list(monthly_challenge.keys())
     if month > len(months):
